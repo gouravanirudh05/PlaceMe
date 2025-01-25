@@ -117,6 +117,17 @@ app.post("/api/createJob", recruiterAuth, async (req, res) => {
   }
 });
 
+app.post("/api/place", recruiterAuth, async (req, res) => {
+    const { jobId, studentId } = req.body;
+    try {
+      const student = await Student.findById(studentId);
+      student.updateOne({jobId: jobId});
+      res.status(201).json({ message: "Student places successfully!" });
+    } catch (error) {
+      res.status(400).json({ error: "Failed to place student!" });
+    }
+  });
+
 // Get all jobs (for students)
 app.get("/api/jobs", studentAuth, async (req, res) => {
   try {
