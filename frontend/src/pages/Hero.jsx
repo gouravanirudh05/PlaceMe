@@ -45,6 +45,16 @@ const Hero = () => {
           Revolutionize your campus placement process with an all-in-one platform. 
           Manage applications, coordinate recruiters, and gain insights seamlessly.
         </p>
+
+        {/* GIF */}
+        <div className="mt-8">
+          <img
+            src="https://media.giphy.com/media/qgQUggAC3Pfv687qPC/giphy.gif?cid=790b7611l1nzk3m0j1pngn8gf3qjj9xytumgrr1swhjb54xz&ep=v1_gifs_search&rid=giphy.gif&ct=g"
+            alt="Hero GIF"
+            className="mx-auto mt-6"
+          />
+        </div>
+
         <div className="mt-8">
           <button
             className="bg-blue-500 text-white px-6 py-3 rounded hover:bg-blue-600 mx-2"
