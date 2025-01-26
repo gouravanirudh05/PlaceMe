@@ -1,87 +1,55 @@
 import React from "react";
-
-export default function DemoPage() {
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
+import Hero from "./pages/Hero";
+import { ToastContainer } from "react-toastify";
+import Chatbot from "./components/Chatbot";
+import About from "./pages/About";
+// import  MeetingRoom from "./pages/MeetingRoom";
+// import StudentDashboard from "./pages/StudentDashboard";
+import PracticeQuestions from "./pages/PracticeQuestions";
+import Blogs from "./pages/Blog";
+const App = () => {
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center">
-      {/* Header */}
-      <header className="w-full bg-blue-600 text-white py-4 shadow-md">
-        <div className="container mx-auto px-4 text-center">
-          <h1 className="text-3xl font-bold">Welcome to Tailwind CSS Demo Page</h1>
-          <p className="text-sm">Experience the power of utility-first styling!</p>
+    <Router>
+      <div className="flex flex-col min-h-screen">
+        {/* Navbar */}
+        <Navbar />
+
+        {/* Main Content */}
+        <div className="flex-grow">
+          <Routes>       
+            {/* <Route path="/" element={<LandingPage />} />      */}
+            {/* <Route path="/news" element={<HealthBlog />} /> */}
+            {/* <Route path="/blog" element={<Blog />} /> */}
+            <Route path="/" element={<Hero />} />
+            <Route path="/practice-questions" element={<PracticeQuestions />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/blogs" element={<Blogs />} />
+            {/* <Route path="/login" element={<LoginForm />} /> */}
+            {/* {/* <Route path="/patient-dashboard" element={<PatientDashboard />} /> */}
+            {/* <Route path="/profile" element={<Profile />} />
+            <Route path="/doctor-dashboard" element={<DoctorDashboard />} />
+            <Route path="/admin-dashboard" element={<AdminDashboard />} />
+            <Route path="/scheduleappointment" element={<ScheduleAppointment />} />
+            <Route path="/schedule-appointment" element={<AppointmentForm />} />
+            <Route path="/register-patient" element={<RegisterPatient />} />
+            <Route path="/register-doctor" element={<RegisterDoctor />} />
+            <Route path="/reports" element={<Reports />} /> */}
+            {/* <Route path="/meeting-room/*" element={<MeetingRoom />} />  */}
+          </Routes>
         </div>
-      </header>
 
-      {/* Main Content */}
-      <main className="container mx-auto px-4 py-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {/* Card 1 */}
-          <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
-            <img
-              src="https://via.placeholder.com/300"
-              alt="Placeholder"
-              className="w-full h-48 object-cover"
-            />
-            <div className="p-4">
-              <h2 className="text-xl font-semibold text-gray-800">
-                Responsive Design
-              </h2>
-              <p className="text-gray-600 mt-2">
-                Tailwind makes it easy to create responsive layouts with its
-                utility classes.
-              </p>
-              <button className="mt-4 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
-                Learn More
-              </button>
-            </div>
-          </div>
+        {/* Chatbot */}
+        <Chatbot />
 
-          {/* Card 2 */}
-          <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
-            <img
-              src="https://via.placeholder.com/300"
-              alt="Placeholder"
-              className="w-full h-48 object-cover"
-            />
-            <div className="p-4">
-              <h2 className="text-xl font-semibold text-gray-800">Customizable</h2>
-              <p className="text-gray-600 mt-2">
-                Easily extend Tailwind's default styles to match your design
-                needs.
-              </p>
-              <button className="mt-4 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
-                Learn More
-              </button>
-            </div>
-          </div>
-
-          {/* Card 3 */}
-          <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
-            <img
-              src="https://via.placeholder.com/300"
-              alt="Placeholder"
-              className="w-full h-48 object-cover"
-            />
-            <div className="p-4">
-              <h2 className="text-xl font-semibold text-gray-800">
-                Developer Friendly
-              </h2>
-              <p className="text-gray-600 mt-2">
-                Write clean, maintainable code using utility-first classes.
-              </p>
-              <button className="mt-4 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
-                Learn More
-              </button>
-            </div>
-          </div>
-        </div>
-      </main>
-
-      {/* Footer */}
-      <footer className="w-full bg-gray-800 text-white py-4">
-        <div className="container mx-auto px-4 text-center">
-          <p className="text-sm">&copy; 2025 Demo Page. All rights reserved.</p>
-        </div>
-      </footer>
-    </div>
+        {/* Footer */}
+        <ToastContainer />
+        <Footer />
+      </div>
+    </Router>
   );
-}
+};
+
+export default App;
