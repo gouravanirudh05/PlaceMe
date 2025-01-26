@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import logo from './../assets/appointments.png';
+import logo from './../assets/applicationManagement.png';
 
 const ConnectForm = ({ connectToVideo }) => {
   const [channelName, setChannelName] = useState('');

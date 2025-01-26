@@ -11,6 +11,8 @@ import CodingPlatform from "./pages/CodingPlatform";
 // import StudentDashboard from "./pages/StudentDashboard";
 import PracticeQuestions from "./pages/PracticeQuestions";
 import Blogs from "./pages/Blog";
+import MeetingRoom from "./pages/MeetingRoom";
+
 const App = () => {
   return (
     <Router>
@@ -40,7 +42,7 @@ const App = () => {
             <Route path="/register-patient" element={<RegisterPatient />} />
             <Route path="/register-doctor" element={<RegisterDoctor />} />
             <Route path="/reports" element={<Reports />} /> */}
-            {/* <Route path="/meeting-room/*" element={<MeetingRoom />} />  */}
+            <Route path="/meeting-room/*" element={<MeetingRoom />} /> 
           </Routes>
         </div>
 
