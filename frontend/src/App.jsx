@@ -12,7 +12,8 @@ import CodingPlatform from "./pages/CodingPlatform";
 import PracticeQuestions from "./pages/PracticeQuestions";
 import Blogs from "./pages/Blog";
 import MeetingRoom from "./pages/MeetingRoom";
-
+import JobsPage from "./pages/JobsPage";
+import LoginForm from "./pages/Login";
 const App = () => {
   return (
     <Router>
@@ -32,7 +33,8 @@ const App = () => {
             <Route path="/about" element={<About />} />
             <Route path="/coding-platform" element={<CodingPlatform />} />
             <Route path="/blogs" element={<Blogs />} />
-            {/* <Route path="/login" element={<LoginForm />} /> */}
+            <Route path="/jobs" element={<JobsPage />} />
+            <Route path="/login" element={<LoginForm />} />
             {/* {/* <Route path="/patient-dashboard" element={<PatientDashboard />} /> */}
             {/* <Route path="/profile" element={<Profile />} />
             <Route path="/doctor-dashboard" element={<DoctorDashboard />} />
