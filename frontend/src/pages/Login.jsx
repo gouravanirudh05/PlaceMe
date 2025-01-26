@@ -130,7 +130,7 @@ const LoginForm = () => {
                 >
                   <option value="student">Student</option>
                   <option value="recruiter">Recruiter</option>
-                  <option value="admin">Admin</option>
+                  <option value="college">College</option>
                 </select>
               </div>
 

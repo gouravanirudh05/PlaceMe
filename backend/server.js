@@ -63,13 +63,13 @@ app.post("/api/college/signup", async (req, res) => {
 
 // Student signup
 app.post("/api/student/signup", async (req, res) => {
-  const { name, email, password, collegeId } = req.body;
+  const { name, email, password} = req.body;
   try {
     const existingStudent = await Student.findOne({ email });
     if (existingStudent) return res.status(400).json({ error: "Email already exists!" });
 
     const hashedPassword = await bcrypt.hash(password, 10);
-    const student = await Student.create({ name, email, password: hashedPassword, college: collegeId });
+    const student = await Student.create({ name, email, password: hashedPassword });
     res.status(201).json({ message: "Student registered successfully!" });
   } catch (error) {
     res.status(400).json({ error: "Student registration failed!" });
