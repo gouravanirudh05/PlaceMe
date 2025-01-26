@@ -23,10 +23,10 @@ const LoginForm = () => {
     try {
       if (signState === "Sign In") {
         // Handle login
-        const response = await fetch(`${BACKEND_URL}/api/${role}/login`, {
+        const response = await fetch(`${BACKEND_URL}/api/login`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email, password }),
+          body: JSON.stringify({ email, password, role }),
         });
 
         const json = await response.json();
@@ -41,7 +41,7 @@ const LoginForm = () => {
         }
       } else {
         // Handle signup
-        const response = await fetch(`${BACKEND_URL}/api/admin/signup`, {
+        const response = await fetch(`${BACKEND_URL}/api/${role}/signup`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -119,7 +119,6 @@ const LoginForm = () => {
               />
             </div>
 
-            {signState === "Sign In" && (
               <div className="mb-4">
                 <label className="block text-gray-600 mb-2">
                   Are you a student, recruiter, or admin?
@@ -134,7 +133,6 @@ const LoginForm = () => {
                   <option value="admin">Admin</option>
                 </select>
               </div>
-            )}
 
             <button
               type="submit"

@@ -7,12 +7,13 @@ const CodingPlatform = () => {
   const [code, setCode] = useState("// Write your solution here");
   const [output, setOutput] = useState("");
   const [language, setLanguage] = useState("cpp");
+  const [input, setInput] = useState(""); // For custom input
 
   const languages = [
-    { label: "C++", value: "cpp" },
-    { label: "JavaScript", value: "javascript" },
-    { label: "Python", value: "python" },
-    { label: "Java", value: "java" },
+    { label: "C++", value: "cpp", id: 54 },
+    { label: "JavaScript", value: "js", id: 63 },
+    { label: "Python", value: "py", id: 71 },
+    { label: "Java", value: "java", id: 62 },
   ];
 
   // Fetch problem from Codeforces
@@ -33,10 +34,29 @@ const CodingPlatform = () => {
     setCode("// Write your solution here");
   };
 
-  const handleSubmit = () => {
-    console.log("Submitted Code:", code);
-    console.log("Language:", language);
-    setOutput("Example Output\nRuntime: 0.45s");
+  const handleSubmit = async () => {
+    try {
+      const selectedLang = languages.find((lang) => lang.value === language);
+
+      const response = await axios.post('https://api.codex.jaagrav.in', {
+        code: code,
+        language: selectedLang.value,
+        input: input,
+      });
+
+      const { output, error } = response.data;
+
+      setOutput(
+        output
+          ? `Output:\n${output}`
+          : error
+          ? `Error:\n${error}`
+          : "None"
+      );
+    } catch (error) {
+      console.error("Error submitting code:", error);
+      setOutput("Failed to execute the code. Please try again.");
+    }
   };
 
   return (
@@ -93,6 +113,21 @@ const CodingPlatform = () => {
             value={code}
             onChange={handleCodeChange}
           />
+
+          {/* Input Section */}
+          <div className="mt-4">
+            <label htmlFor="input" className="block text-sm font-medium text-gray-700">
+              Custom Input:
+            </label>
+            <textarea
+              id="input"
+              rows="4"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              className="mt-1 block w-full p-2 border border-gray-300 rounded shadow-sm focus:ring-blue-500 focus:border-blue-500"
+              placeholder="Enter input for the code"
+            />
+          </div>
 
           {/* Submit Button */}
           <button

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-// import jwtDecode from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 
 const Navbar = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -21,7 +21,7 @@ const Navbar = () => {
     const token = localStorage.getItem("jwtToken");
     if (token) {
       setIsLoggedIn(true);
-      // const decodedToken = jwtDecode(token);
+      const decodedToken = jwtDecode(token);
 
       switch (decodedToken.role) {
         case "admin":

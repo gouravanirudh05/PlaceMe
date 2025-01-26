@@ -13,15 +13,36 @@ const StudentDashboard = () => {
     navigate("/login"); // Redirect to login page
   };
 
-  const handleResumeUpload = (event) => {
+  const handleResumeUpload = async (event) => {
     const file = event.target.files[0];
     if (file) {
-      setResume(file);
-      toast.success("Resume uploaded successfully!");
+      const formData = new FormData();
+      formData.append("resume", file);
+  
+      try {
+        const response = await fetch("http://localhost:5000/api/student/upload-resume", {
+          method: "POST",
+          body: formData,
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("jwtToken")}`, // Include token for authentication
+          },
+        });
+  
+        const data = await response.json();
+        if (response.ok) {
+          setResume(file);
+          toast.success(data.message);
+        } else {
+          toast.error(data.error || "Failed to upload resume.");
+        }
+      } catch (error) {
+        toast.error("Something went wrong. Please try again.");
+      }
     } else {
-      toast.error("Failed to upload resume. Please try again.");
+      toast.error("Please select a file to upload.");
     }
   };
+  
 
   return (
     <div className="min-h-screen bg-gray-100">

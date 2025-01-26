@@ -9,6 +9,8 @@ import Student from "./models/Student.js";
 import Recruiter from "./models/Recruiter.js";
 import Application from "./models/Application.js";
 import Job from "./models/Job.js";
+import multer from "multer";
+import axios from "axios";
 import { studentAuth, recruiterAuth, collegeAuth, verifyToken } from "./middlewares/authMiddleware.js";
 
 dotenv.config();
@@ -16,6 +18,17 @@ dotenv.config();
 const app = express();
 app.use(express.json());
 app.use(cors());
+
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
+
+
+// Your Judge0 API keys
+const JUDGE0_API_BASE = "https://judge0-ce.p.rapidapi.com";
+const JUDGE0_API_HEADERS = {
+  "X-RapidAPI-Host": "judge0-ce.p.rapidapi.com",
+  "X-RapidAPI-Key": "4fe2083015mshec311dc12f5ee39p11ebddjsn0d0e81583475", // Replace with your RapidAPI key
+};
 
 // Connect to MongoDB
 mongoose
@@ -65,13 +78,13 @@ app.post("/api/student/signup", async (req, res) => {
 
 // Recruiter signup
 app.post("/api/recruiter/signup", async (req, res) => {
-  const { name, email, password, company } = req.body;
+  const { name, email, password } = req.body;
   try {
     const existingRecruiter = await Recruiter.findOne({ email });
     if (existingRecruiter) return res.status(400).json({ error: "Email already exists!" });
 
     const hashedPassword = await bcrypt.hash(password, 10);
-    const recruiter = await Recruiter.create({ name, email, password: hashedPassword, company });
+    const recruiter = await Recruiter.create({ name, email, password: hashedPassword });
     res.status(201).json({ message: "Recruiter registered successfully!" });
   } catch (error) {
     res.status(400).json({ error: "Recruiter registration failed!" });
@@ -157,6 +170,92 @@ app.get("/api/applications/:jobId", recruiterAuth, async (req, res) => {
     res.status(200).json(applications);
   } catch (error) {
     res.status(500).json({ error: "Failed to fetch applications!" });
+  }
+});
+
+app.post("/submit", async (req, res) => {
+  const { source_code, language_id, stdin } = req.body;
+
+  if (!source_code || !language_id || stdin === undefined) {
+    return res.status(400).json({ error: "Missing required fields" });
+  }
+
+  try {
+    // Submit code to Judge0
+    const submissionResponse = await axios.post(
+      `${JUDGE0_API_BASE}/submissions`,
+      {
+        source_code,
+        language_id,
+        stdin,
+      },
+      { headers: { ...JUDGE0_API_HEADERS, "Content-Type": "application/json" } }
+    );
+
+    const { token } = submissionResponse.data;
+
+    // Polling for the result
+    const getResult = async () => {
+      const resultResponse = await axios.get(
+        `${JUDGE0_API_BASE}/submissions/${token}`,
+        { headers: JUDGE0_API_HEADERS }
+      );
+
+      if (resultResponse.data.status.id <= 2) {
+        // Status 1: In Queue, 2: Processing
+        return new Promise((resolve) =>
+          setTimeout(() => resolve(getResult()), 1000)
+        );
+      }
+
+      return resultResponse.data;
+    };
+
+    const result = await getResult();
+
+    // Return the result
+    return res.json({
+      stdout: result.stdout,
+      stderr: result.stderr,
+      compile_output: result.compile_output,
+      time: result.time,
+      memory: result.memory,
+      status: result.status.description,
+    });
+  } catch (error) {
+    console.error("Error processing submission:", error);
+    return res.status(500).json({ error: "Failed to process submission" });
+  }
+});
+
+app.post("/api/student/upload-resume", studentAuth, upload.single("resume"), async (req, res) => {
+  try {
+    const studentId = req.student._id; // Assuming you have middleware to decode JWT and attach `req.user`
+    const resume = req.file;
+
+    if (!resume) {
+      return res.status(400).json({ error: "No file uploaded." });
+    }
+
+    // Update student document with resume data
+    const student = await Student.findById(studentId);
+    if (!student) {
+      return res.status(404).json({ error: "Student not found." });
+    }
+
+    // Store resume data as a buffer
+    student.resume = {
+      data: resume.buffer,
+      contentType: resume.mimetype,
+      name: resume.originalname,
+    };
+
+    await student.save();
+
+    res.status(200).json({ message: "Resume uploaded successfully!" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Server error. Please try again later." });
   }
 });
 
