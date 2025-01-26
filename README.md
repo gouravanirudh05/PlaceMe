@@ -57,7 +57,7 @@
 
 ![Project](frontend/src/assets/image.png)
 
-Youtube video link:
+Youtube video link: https://youtu.be/cQJm-X1oVHc
 
 This platform is designed to facilitate campus placement processes by centralizing application submissions, interview scheduling, and communication between students and recruiters. It integrates a virtual meeting room powered by **Agora** for conducting online interviews, and includes an interactive whiteboard for collaborative discussions during meetings.
 
