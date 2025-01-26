@@ -58,7 +58,7 @@
 <video width="600" controls autoplay>
   <source src="frontend/src/assets/PlaceMe.mp4" type="video/mp4">
   Your browser does not support the video tag.
-</video>)
+</video>
 
 Youtube video link:
 This platform is designed to facilitate campus placement processes by centralizing application submissions, interview scheduling, and communication between students and recruiters. It integrates a virtual meeting room powered by **Agora** for conducting online interviews, and includes an interactive whiteboard for collaborative discussions during meetings.
