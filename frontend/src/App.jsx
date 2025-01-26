@@ -6,6 +6,7 @@ import Hero from "./pages/Hero";
 import { ToastContainer } from "react-toastify";
 import Chatbot from "./components/Chatbot";
 import About from "./pages/About";
+import CodingPlatform from "./pages/CodingPlatform";
 // import  MeetingRoom from "./pages/MeetingRoom";
 // import StudentDashboard from "./pages/StudentDashboard";
 import PracticeQuestions from "./pages/PracticeQuestions";
@@ -19,13 +20,15 @@ const App = () => {
 
         {/* Main Content */}
         <div className="flex-grow">
-          <Routes>       
+          <Routes>  
+                 
             {/* <Route path="/" element={<LandingPage />} />      */}
             {/* <Route path="/news" element={<HealthBlog />} /> */}
             {/* <Route path="/blog" element={<Blog />} /> */}
             <Route path="/" element={<Hero />} />
             <Route path="/practice-questions" element={<PracticeQuestions />} />
             <Route path="/about" element={<About />} />
+            <Route path="/coding-platform" element={<CodingPlatform />} />
             <Route path="/blogs" element={<Blogs />} />
             {/* <Route path="/login" element={<LoginForm />} /> */}
             {/* {/* <Route path="/patient-dashboard" element={<PatientDashboard />} /> */}
