@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import placement from "../assets/placement.gif"; // Imported gif
 
 const About = () => {
   const navigate = useNavigate();
@@ -22,7 +23,7 @@ const About = () => {
             </p>
           </div>
           <img
-            src="/assets/applicationManagement.png"
+            src={placement} // Use the imported gif here
             alt="Placement process illustration"
             className="rounded-lg shadow-lg"
           />
@@ -62,7 +63,7 @@ const About = () => {
               </p>
             </div>
             <img
-              src="/assets/recruiterCoordination.png"
+              src={placement} // Use the imported gif here as well
               alt="Benefits illustration"
               className="rounded-lg shadow-lg"
             />

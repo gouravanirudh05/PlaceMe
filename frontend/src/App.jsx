@@ -8,12 +8,14 @@ import Chatbot from "./components/Chatbot";
 import About from "./pages/About";
 import CodingPlatform from "./pages/CodingPlatform";
 // import  MeetingRoom from "./pages/MeetingRoom";
-// import StudentDashboard from "./pages/StudentDashboard";
+import StudentDashboard from "./pages/StudentDashboard";
 import PracticeQuestions from "./pages/PracticeQuestions";
 import Blogs from "./pages/Blog";
 import MeetingRoom from "./pages/MeetingRoom";
 import JobsPage from "./pages/JobsPage";
 import LoginForm from "./pages/Login";
+import RecruiterDashboard from "./pages/RecruiterDashboard";
+import AdminDashboard from "./pages/AdminDashboard";
 const App = () => {
   return (
     <Router>
@@ -32,18 +34,12 @@ const App = () => {
             <Route path="/practice-questions" element={<PracticeQuestions />} />
             <Route path="/about" element={<About />} />
             <Route path="/coding-platform" element={<CodingPlatform />} />
+            <Route path="/recruiter-dashboard" element={<RecruiterDashboard />} />
             <Route path="/blogs" element={<Blogs />} />
             <Route path="/jobs" element={<JobsPage />} />
             <Route path="/login" element={<LoginForm />} />
-            {/* {/* <Route path="/patient-dashboard" element={<PatientDashboard />} /> */}
-            {/* <Route path="/profile" element={<Profile />} />
-            <Route path="/doctor-dashboard" element={<DoctorDashboard />} />
+            <Route path="/student-dashboard" element={<StudentDashboard />} />
             <Route path="/admin-dashboard" element={<AdminDashboard />} />
-            <Route path="/scheduleappointment" element={<ScheduleAppointment />} />
-            <Route path="/schedule-appointment" element={<AppointmentForm />} />
-            <Route path="/register-patient" element={<RegisterPatient />} />
-            <Route path="/register-doctor" element={<RegisterDoctor />} />
-            <Route path="/reports" element={<Reports />} /> */}
             <Route path="/meeting-room/*" element={<MeetingRoom />} /> 
           </Routes>
         </div>
